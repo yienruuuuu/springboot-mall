@@ -14,15 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products/{productId}")
+    @GetMapping("/product/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
         Product product = productService.getProductById(productId);
         if (product != null) {
@@ -32,7 +34,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/products")
+    @PostMapping("/product")
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
         Integer productId = productService.createProduct(productRequest);
         Product product = productService.getProductById(productId);
@@ -44,7 +46,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/products/{productId}")
+    @PutMapping("/product/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer productId, @RequestBody @Valid ProductRequest productRequest) {
         //檢查商品原來是否存在，不存在的話就回傳404
         Product productCheck = productService.getProductById(productId);
@@ -67,6 +69,12 @@ public class ProductController {
         productService.deleteProduct(productId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getProducts() {
+        List<Product> productList = productService.getProducts();
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
 
 }
