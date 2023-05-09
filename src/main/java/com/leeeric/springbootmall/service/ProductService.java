@@ -1,6 +1,6 @@
 package com.leeeric.springbootmall.service;
 
-import com.leeeric.springbootmall.constant.ProductCategory;
+import com.leeeric.springbootmall.dao.ProductQueryParams;
 import com.leeeric.springbootmall.dto.ProductRequest;
 import com.leeeric.springbootmall.model.Product;
 
@@ -11,5 +11,5 @@ public interface ProductService {
     Integer createProduct(ProductRequest productRequest);
     void updateProduct(Integer productId,ProductRequest productRequest);
     void deleteProduct(Integer productId);
-    List<Product> getProducts(ProductCategory category,String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 }

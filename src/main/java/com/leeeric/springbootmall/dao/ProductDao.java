@@ -1,6 +1,5 @@
 package com.leeeric.springbootmall.dao;
 
-import com.leeeric.springbootmall.constant.ProductCategory;
 import com.leeeric.springbootmall.dto.ProductRequest;
 import com.leeeric.springbootmall.model.Product;
 
@@ -15,5 +14,5 @@ public interface ProductDao {
 
     void deleteProduct(Integer productId);
 
-    List<Product> getProducts(ProductCategory category, String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 }

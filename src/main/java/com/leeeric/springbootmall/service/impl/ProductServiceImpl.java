@@ -1,7 +1,7 @@
 package com.leeeric.springbootmall.service.impl;
 
-import com.leeeric.springbootmall.constant.ProductCategory;
 import com.leeeric.springbootmall.dao.ProductDao;
+import com.leeeric.springbootmall.dao.ProductQueryParams;
 import com.leeeric.springbootmall.dto.ProductRequest;
 import com.leeeric.springbootmall.model.Product;
 import com.leeeric.springbootmall.service.ProductService;
@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProducts(ProductCategory category, String search) {
-        return productDao.getProducts(category, search);
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
+        return productDao.getProducts(productQueryParams);
     }
 }
