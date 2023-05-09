@@ -1,6 +1,7 @@
 package com.leeeric.springbootmall.dao.impl;
 
 import com.leeeric.springbootmall.RowMapper.ProductRowMapper;
+import com.leeeric.springbootmall.constant.ProductCategory;
 import com.leeeric.springbootmall.dao.ProductDao;
 import com.leeeric.springbootmall.dto.ProductRequest;
 import com.leeeric.springbootmall.model.Product;
@@ -107,9 +108,17 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getProducts() {
-        String sql = "SELECT product_id, product_name, category, image_url, price, stock, description, created_date, last_modified_date FROM product";
+    public List<Product> getProducts(ProductCategory category, String search) {
+        String sql = "SELECT product_id, product_name, category, image_url, price, stock, description, created_date, last_modified_date FROM product WHERE 1=1";
         Map<String, Object> map = new HashMap<>();
+        if (category != null) {
+            sql = sql + " AND category=:category";
+            map.put("category", category.name());
+        }
+        if (search != null) {
+            sql = sql + " AND product_name LIKE :product_name";
+            map.put("product_name", "%"+search+"%");
+        }
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
         return productList;
     }

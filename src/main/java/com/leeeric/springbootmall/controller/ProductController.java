@@ -1,5 +1,6 @@
 package com.leeeric.springbootmall.controller;
 
+import com.leeeric.springbootmall.constant.ProductCategory;
 import com.leeeric.springbootmall.dao.ProductDao;
 import com.leeeric.springbootmall.dto.ProductRequest;
 import com.leeeric.springbootmall.model.Product;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.stylesheets.LinkStyle;
 
@@ -72,9 +74,13 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts() {
-        List<Product> productList = productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) String search
+    ) {
+        List<Product> productList = productService.getProducts(category,search);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
+
 
 }
