@@ -46,7 +46,7 @@ public class ProductController {
         Product product = productService.getProductById(productId);
 
         if (product != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(product);
+            return ResponseEntity.status(HttpStatus.CREATED).body(product);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();//build=Build the response entity with no body.
         }
