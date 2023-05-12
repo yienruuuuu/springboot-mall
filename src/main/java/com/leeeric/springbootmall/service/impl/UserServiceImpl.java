@@ -1,6 +1,7 @@
 package com.leeeric.springbootmall.service.impl;
 
 import com.leeeric.springbootmall.dao.UserDao;
+import com.leeeric.springbootmall.dto.UserLoginRequest;
 import com.leeeric.springbootmall.dto.UserRegisterRequest;
 import com.leeeric.springbootmall.model.User;
 import com.leeeric.springbootmall.service.UserService;
@@ -33,5 +34,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userDao.getUserById(userId);
+    }
+
+    @Override
+    public User userLogin(UserLoginRequest userLoginRequest) {
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+        if (user == null){
+            logger.info("該 email: {} ,尚未註冊",userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (user.getPassword().equals(userLoginRequest.getPassword())){
+            return user;
+        }else {
+            logger.info("email: {} ,輸入密碼錯誤",userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);        }
     }
 }
