@@ -1,11 +1,14 @@
 package com.leeeric.springbootmall.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class UserRegisterRequest {
-    @NotNull
+    @NotBlank
+    @Email
     private String email;
-    @NotNull
+    @NotBlank
     private String password;
 
     public String getEmail() {
